@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yacana Space — Ciencia Abierta y Accesible</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cosmic: {
+                            950: '#07080d',
+                            900: '#0e1019',
+                            800: '#181b28',
+                            700: '#252a3d',
+                        },
+                        starlight: {
+                            300: '#f3d58d',
+                            400: '#d4a853',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cosmic-950 text-zinc-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden">
+
+    <!-- Subtle Astronomical & Milky Way (Mayu) Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <!-- Fine Scientific Star Chart Grid -->
+        <svg class="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="astroGrid" width="64" height="64" patternUnits="userSpaceOnUse">
+                    <path d="M 64 0 L 0 0 0 64" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                    <circle cx="0" cy="0" r="1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#astroGrid)" class="text-indigo-200"/>
+        </svg>
+        <!-- Diagonal Milky Way Glow (Mayu - Celestial River) -->
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[95vw] max-w-5xl h-[26rem] bg-indigo-500/10 blur-[130px] rounded-full -rotate-12"></div>
+        <div class="absolute top-1/3 -left-24 w-96 h-96 bg-starlight-400/5 blur-[120px] rounded-full"></div>
+        <div class="absolute top-1/2 -right-32 w-80 h-80 bg-cyan-500/5 blur-[110px] rounded-full"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full border-b border-zinc-800/70 bg-cosmic-950/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-2.5 group">
+                    <!-- Minimalist Yakana Constellation SVG Logo (Celestial Llama & Alpha/Beta Centauri) -->
+                    <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-starlight-400/60 transition-colors">
+                        <svg class="w-4 h-4 text-starlight-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <path d="M5 17L8 12L14 11L16.5 5.5L19 6.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"/>
+                            <path d="M8 12L7.5 18.5M14 11L15 18.5" stroke-linecap="round" class="text-indigo-400/80"/>
+                            <!-- Alpha & Beta Centauri (Llamacñawin - Eyes of Yakana) -->
+                            <circle cx="16.5" cy="5.5" r="1.4" fill="currentColor" stroke="none"/>
+                            <circle cx="19" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </div>
+                    <span class="font-semibold tracking-tight text-zinc-100 text-base">Yacana Space</span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm text-zinc-400">
+                    <a href="#origen" class="hover:text-zinc-100 transition-colors" data-i18n="nav_origin">La Yakana</a>
+                    <a href="#caracteristicas" class="hover:text-zinc-100 transition-colors" data-i18n="nav_features">Características</a>
+                    <a href="#validacion" class="hover:text-zinc-100 transition-colors" data-i18n="nav_validation">Validación</a>
+                    <a href="#opensource" class="hover:text-zinc-100 transition-colors" data-i18n="nav_opensource">Open Source</a>
+                </nav>
+
+                <!-- Desktop Actions -->
+                <div class="hidden md:flex items-center gap-3">
+                    <!-- Language Toggle -->
+                    <button id="langToggle" type="button" class="px-2.5 py-1.5 text-xs font-mono text-zinc-400 hover:text-zinc-100 bg-zinc-900 border border-zinc-800 rounded-lg transition-colors" aria-label="Cambiar idioma">
+                        EN
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button id="langToggleMobile" type="button" class="px-2.5 py-1.5 text-xs font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 rounded-lg">
+                        EN
+                    </button>
+                    <button id="mobileMenuBtn" type="button" class="p-2 text-zinc-400 hover:text-zinc-100 rounded-lg border border-zinc-800 bg-zinc-900" aria-label="Abrir menú">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-zinc-800/70 bg-cosmic-950 px-4 pt-3 pb-5 space-y-3">
+            <a href="#origen" onclick="closeMobileMenu()" class="block py-2 text-sm text-zinc-300 hover:text-white" data-i18n="nav_origin">La Yakana</a>
+            <a href="#caracteristicas" onclick="closeMobileMenu()" class="block py-2 text-sm text-zinc-300 hover:text-white" data-i18n="nav_features">Características</a>
+            <a href="#validacion" onclick="closeMobileMenu()" class="block py-2 text-sm text-zinc-300 hover:text-white" data-i18n="nav_validation">Validación</a>
+            <a href="#opensource" onclick="closeMobileMenu()" class="block py-2 text-sm text-zinc-300 hover:text-white" data-i18n="nav_opensource">Open Source</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-20 pb-16 sm:pt-28 sm:pb-24 px-4 sm:px-6 lg:px-8">
+            <!-- Subtle Scientific Astrolabe Arc Decoration -->
+            <div class="absolute inset-x-0 top-10 -z-10 flex justify-center pointer-events-none opacity-30">
+                <svg class="w-full max-w-3xl h-64 text-zinc-700" viewBox="0 0 800 300" fill="none">
+                    <circle cx="400" cy="340" r="280" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 6"/>
+                    <circle cx="400" cy="340" r="220" stroke="currentColor" stroke-width="0.5"/>
+                    <circle cx="240" cy="110" r="2" fill="#f3d58d"/>
+                    <circle cx="575" cy="95" r="1.5" fill="#818cf8"/>
+                    <circle cx="620" cy="160" r="1.5" fill="#f3d58d"/>
+                </svg>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Minimalist Pill Badge with Astronomical Coordinates -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300 mb-8">
+                    <span class="w-2 h-2 rounded-full bg-starlight-400 animate-pulse"></span>
+                    <span data-i18n="hero_badge">Open Source • Plataforma de Divulgación Científica</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.1] mb-6" data-i18n="hero_title">
+                    Democratizando el acceso a la divulgación científica.
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10" data-i18n="hero_subtitle">
+                    Un hub descentralizado donde divulgadores, instituciones y la comunidad conectan proyectos, eventos locales y conocimiento científico validado por pares.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                    <a href="#caracteristicas" class="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-zinc-100 text-zinc-950 hover:bg-white rounded-xl transition-all" data-i18n="hero_cta_primary">
+                        Conocer el ecosistema
+                    </a>
+                </div>
+
+                <!-- Subtle Astronomical Coordinate Metadata Strip -->
+                <div class="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-mono text-zinc-500">
+                    <span>α Cen · β Cen (Llamacñawin)</span>
+                    <span class="hidden sm:inline text-zinc-700">|</span>
+                    <span>RA 14h 39m · DEC −60° 50′</span>
+                    <span class="hidden sm:inline text-zinc-700">|</span>
+                    <span data-i18n="hero_coord_label">Constelación Oscura · Vía Láctea Austral</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yakana Mythology & Science Origin Section -->
+        <section id="origen" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="rounded-3xl border border-zinc-800/80 bg-cosmic-900/75 backdrop-blur-sm overflow-hidden shadow-2xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
+                        <!-- Left: Scientific Dark-Cloud Star Chart of the Yakana -->
+                        <div class="lg:col-span-6 relative bg-cosmic-950/90 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-zinc-800/80">
+                            <div class="flex items-center justify-between text-[11px] font-mono text-zinc-500 mb-4">
+                                <span>PLATE 01 // MAYU (VÍA LÁCTEA)</span>
+                                <span class="text-starlight-300">DARK CLOUD CONSTELLATION</span>
+                            </div>
+
+                            <!-- Inline SVG: Celestial Llama (Yakana) in the Milky Way Dust Lanes -->
+                            <div class="relative rounded-2xl border border-zinc-800/80 bg-gradient-to-br from-[#080a14] via-[#101428] to-[#07080d] p-4 overflow-hidden">
+                                <svg viewBox="0 0 520 300" class="w-full h-auto" role="img" aria-label="Carta estelar de la constelación oscura de la Yakana">
+                                    <defs>
+                                        <radialGradient id="milkyGlow" cx="50%" cy="50%" r="55%">
+                                            <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22"/>
+                                            <stop offset="60%" stop-color="#1e1b4b" stop-opacity="0.10"/>
+                                            <stop offset="100%" stop-color="#07080d" stop-opacity="0"/>
+                                        </radialGradient>
+                                        <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stop-color="#f3d58d" stop-opacity="1"/>
+                                            <stop offset="45%" stop-color="#d4a853" stop-opacity="0.5"/>
+                                            <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+
+                                    <!-- Subtle Equatorial & Galactic Grid Arcs -->
+                                    <g stroke="#3f3f5a" stroke-width="0.5" opacity="0.45" fill="none">
+                                        <path d="M 0 60 Q 260 20 520 75"/>
+                                        <path d="M 0 150 Q 260 110 520 165"/>
+                                        <path d="M 0 240 Q 260 200 520 255"/>
+                                        <line x1="130" y1="0" x2="110" y2="300" stroke-dasharray="2 4"/>
+                                        <line x1="260" y1="0" x2="260" y2="300" stroke-dasharray="2 4"/>
+                                        <line x1="390" y1="0" x2="410" y2="300" stroke-dasharray="2 4"/>
+                                    </g>
+
+                                    <!-- Milky Way Luminous Band -->
+                                    <ellipse cx="260" cy="150" rx="250" ry="95" transform="rotate(-14 260 150)" fill="url(#milkyGlow)"/>
+
+                                    <!-- Background Starfield -->
+                                    <g fill="#e4e4e7">
+                                        <circle cx="42" cy="48" r="1" opacity="0.6"/>
+                                        <circle cx="88" cy="112" r="1.2" opacity="0.5"/>
+                                        <circle cx="115" cy="64" r="0.9" opacity="0.7"/>
+                                        <circle cx="164" cy="40" r="1.3" opacity="0.5"/>
+                                        <circle cx="210" cy="74" r="1" opacity="0.6"/>
+                                        <circle cx="290" cy="46" r="1.1" opacity="0.5"/>
+                                        <circle cx="348" cy="58" r="0.9" opacity="0.7"/>
+                                        <circle cx="448" cy="52" r="1.2" opacity="0.6"/>
+                                        <circle cx="476" cy="138" r="1" opacity="0.5"/>
+                                        <circle cx="432" cy="228" r="1.1" opacity="0.6"/>
+                                        <circle cx="322" cy="252" r="1" opacity="0.5"/>
+                                        <circle cx="185" cy="256" r="1.2" opacity="0.6"/>
+                                        <circle cx="72" cy="236" r="1" opacity="0.5"/>
+                                        <circle cx="54" cy="168" r="1.4" opacity="0.45"/>
+                                    </g>
+
+                                    <!-- Yakana Dark-Cloud Nebula Silhouette (Celestial Llama) -->
+                                    <path d="M 118 192
+                                             C 122 152, 152 128, 206 122
+                                             C 248 117, 294 114, 326 104
+                                             C 344 82, 355 58, 370 54
+                                             C 382 51, 398 58, 404 68
+                                             C 407 74, 396 80, 382 82
+                                             C 374 96, 366 120, 360 144
+                                             C 356 168, 364 202, 354 228
+                                             C 348 234, 340 230, 338 214
+                                             C 334 190, 328 176, 316 174
+                                             C 278 178, 224 182, 184 186
+                                             C 172 204, 168 228, 156 236
+                                             C 148 238, 144 230, 146 212
+                                             C 148 196, 134 198, 118 192 Z"
+                                          fill="#06070c" fill-opacity="0.88" stroke="#6366f1" stroke-opacity="0.35" stroke-width="1"/>
+
+                                    <!-- Uña Yacana (Baby Llama dark-cloud silhouette beneath) -->
+                                    <path d="M 222 216
+                                             C 228 198, 248 194, 268 192
+                                             C 276 184, 282 176, 290 176
+                                             C 295 176, 298 182, 292 186
+                                             C 288 194, 286 212, 280 226
+                                             C 276 228, 272 222, 272 212
+                                             C 260 212, 246 214, 238 226
+                                             C 232 228, 226 224, 222 216 Z"
+                                          fill="#06070c" fill-opacity="0.82" stroke="#d4a853" stroke-opacity="0.28" stroke-width="0.9" stroke-dasharray="2 2"/>
+
+                                    <!-- Alpha & Beta Centauri (Llamacñawin - The Two Bright Eyes) -->
+                                    <circle cx="372" cy="67" r="14" fill="url(#starGlow)"/>
+                                    <circle cx="372" cy="67" r="3" fill="#fef3c7"/>
+                                    <circle cx="390" cy="72" r="10" fill="url(#starGlow)"/>
+                                    <circle cx="390" cy="72" r="2.2" fill="#fde68a"/>
+
+                                    <!-- Scientific Callout Lines & Labels -->
+                                    <g font-family="JetBrains Mono, monospace" font-size="9" fill="#a1a1aa">
+                                        <line x1="376" y1="63" x2="412" y2="38" stroke="#d4a853" stroke-width="0.7" opacity="0.8"/>
+                                        <text x="416" y="37" fill="#f3d58d">α &amp; β Cen</text>
+                                        <text x="416" y="48" font-size="8" fill="#71717a">Llamacñawin</text>
+
+                                        <line x1="255" y1="205" x2="255" y2="262" stroke="#6366f1" stroke-width="0.6" opacity="0.6"/>
+                                        <text x="262" y="268" font-size="8" fill="#a1a1aa">Uña Yacana</text>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <div class="mt-4 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                                <span data-i18n="yakana_caption_left">Cosmovisión Andina × Astronomía Moderna</span>
+                                <span>S 60° 50′</span>
+                            </div>
+                        </div>
+
+                        <!-- Right: Story Connecting Yakana Mythology & Open Science -->
+                        <div class="lg:col-span-6 p-6 sm:p-10 lg:p-12">
+                            <p class="text-xs font-mono uppercase tracking-wider text-starlight-400 mb-3" data-i18n="yakana_eyebrow">
+                                Mitología y Ciencia
+                            </p>
+                            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-5" data-i18n="yakana_title">
+                                ¿Por qué Yakana? El cielo oscuro como mapa del conocimiento.
+                            </h2>
+                            <p class="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4" data-i18n="yakana_p1">
+                                En la astronomía andina, la <span class="text-zinc-200 font-medium">Yakana</span> es la gran constelación oscura de la llama que camina por el río celestial de la Vía Láctea (<em>Mayu</em>), guiada por dos estrellas brillantes como ojos: Alfa y Beta Centauri. Según el relato ancestral, desciende de noche a beber del océano para mantener el equilibrio del mundo.
+                            </p>
+                            <p class="text-sm sm:text-base text-zinc-400 leading-relaxed mb-7" data-i18n="yakana_p2">
+                                Así como los pueblos andinos supieron leer los vacíos entre las estrellas para orientarse, <span class="text-zinc-200 font-medium">Yacana Space</span> nace para dar forma y visibilidad a la ciencia dispersa, uniendo la curiosidad ancestral con tecnología abierta e inteligencia artificial.
+                            </p>
+
+                            <!-- Three Minimalist Scientific/Mythic Pillars -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-zinc-800/80">
+                                <div>
+                                    <span class="block text-xs font-mono text-starlight-300">Mayu</span>
+                                    <span class="text-xs text-zinc-400" data-i18n="yakana_pillar1">Red viva de proyectos</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs font-mono text-indigo-300">Llamacñawin</span>
+                                    <span class="text-xs text-zinc-400" data-i18n="yakana_pillar2">Claridad y rigor por pares</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs font-mono text-cyan-300">Ciencia Abierta</span>
+                                    <span class="text-xs text-zinc-400" data-i18n="yakana_pillar3">Acceso libre y regional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Features Bento Grid -->
+        <section id="caracteristicas" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl mb-14">
+                    <p class="text-xs font-mono uppercase tracking-wider text-indigo-400 mb-3" data-i18n="feat_eyebrow">Arquitectura del ecosistema</p>
+                    <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white mb-4" data-i18n="feat_title">
+                        Todo lo que necesita la ciencia abierta en un solo lugar.
+                    </h2>
+                    <p class="text-zinc-400 text-base leading-relaxed" data-i18n="feat_desc">
+                        Diseñado para conectar proyectos independientes, instituciones gubernamentales y ciudadanos curiosos sin fricción.
+                    </p>
+                </div>
+
+                <!-- 6 Minimalist Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Card 1 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-indigo-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f1_title">Mapa Interactivo Regional</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f1_desc">
+                            Explora iniciativas, observatorios, museos y divulgadores filtrando por disciplina científica o ubicación geográfica.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-cyan-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f2_title">Calendario de Eventos</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f2_desc">
+                            Descubre charlas, funciones, talleres y actividades científicas en vivo cerca de tu zona y en fechas específicas.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-violet-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f3_title">Búsqueda e Indexación con IA</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f3_desc">
+                            Un motor inteligente que rastrea, categoriza e indexa proyectos de divulgación relevantes, potenciando el descubrimiento humano.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-emerald-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f4_title">Guiones Validados por Pares</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f4_desc">
+                            Publica scripts y textos científicos para que un pool de especialistas y la comunidad los revisen, comenten y validen.
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-amber-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f5_title">Propiedad Comunitaria</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f5_desc">
+                            Cualquier usuario puede proponer un proyecto. Sus creadores pueden mantenerlo visible o reclamar el ownership para ampliarlo.
+                        </p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="p-6 rounded-2xl bg-cosmic-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center text-rose-400 mb-5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-medium text-white mb-2" data-i18n="f6_title">Hub de Redes y Fuentes</h3>
+                        <p class="text-sm text-zinc-400 leading-relaxed" data-i18n="f6_desc">
+                            Cada proyecto centraliza sus canales sociales, repositorios y publicaciones oficiales en un perfil limpio y verificable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Peer Validation & Workflow Section -->
+        <section id="validacion" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-zinc-900">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-5">
+                        <p class="text-xs font-mono uppercase tracking-wider text-emerald-400 mb-3" data-i18n="val_eyebrow">Rigor y Colaboración</p>
+                        <h2 class="text-3xl font-semibold tracking-tight text-white mb-4" data-i18n="val_title">
+                            De la idea al contenido científico validado.
+                        </h2>
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed mb-8" data-i18n="val_desc">
+                            Yacana Space no solo conecta audiencias; eleva la calidad de la divulgación ofreciendo un espacio abierto de revisión colaborativa para textos y guiones.
+                        </p>
+
+                        <!-- 3 Simple Steps -->
+                        <div class="space-y-5">
+                            <div class="flex gap-4">
+                                <span class="text-xs font-mono text-zinc-500 pt-1">01</span>
+                                <div>
+                                    <h4 class="text-sm font-medium text-zinc-100" data-i18n="step1_title">Propón o publica tu guion</h4>
+                                    <p class="text-xs text-zinc-400 mt-1" data-i18n="step1_desc">Comparte borradores de videos, artículos o proyectos con fuentes abiertas.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-xs font-mono text-zinc-500 pt-1">02</span>
+                                <div>
+                                    <h4 class="text-sm font-medium text-zinc-100" data-i18n="step2_title">Revisión de la comunidad</h4>
+                                    <p class="text-xs text-zinc-400 mt-1" data-i18n="step2_desc">Investigadores y pares aportan sugerencias, solicitan datos y verifican afirmaciones.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-xs font-mono text-zinc-500 pt-1">03</span>
+                                <div>
+                                    <h4 class="text-sm font-medium text-zinc-100" data-i18n="step3_title">Publicación con respaldo</h4>
+                                    <p class="text-xs text-zinc-400 mt-1" data-i18n="step3_desc">El contenido obtiene un sello de revisión comunitaria transparente para el público.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Minimalist Script Validation Mockup -->
+                    <div class="lg:col-span-7">
+                        <div class="rounded-2xl border border-zinc-800 bg-cosmic-900 p-5 sm:p-6">
+                            <div class="flex items-center justify-between pb-4 border-b border-zinc-800">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                                    <span class="text-xs font-mono text-zinc-400">script-exoplanetas-v2.md</span>
+                                </div>
+                                <span class="px-2.5 py-0.5 text-xs font-mono rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" data-i18n="mock_badge">
+                                    Validado (3 pares)
+                                </span>
+                            </div>
+
+                            <div class="py-5 space-y-4">
+                                <p class="text-sm text-zinc-300 leading-relaxed font-mono bg-zinc-950/70 p-4 rounded-xl border border-zinc-800/80" data-i18n="mock_excerpt">
+                                    "Al observar el tránsito de un exoplaneta frente a su estrella anfitriona, la curva de luz presenta una caída periódica que permite estimar su radio relativo..."
+                                </p>
+
+                                <div class="flex items-start gap-3 p-3.5 rounded-xl bg-zinc-800/40 border border-zinc-800">
+                                    <div class="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-xs font-medium shrink-0">
+                                        DR
+                                    </div>
+                                    <div class="text-xs">
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-medium text-zinc-200">Dra. Elena Ríos</span>
+                                            <span class="text-zinc-500 font-mono">• Astrofísica</span>
+                                        </div>
+                                        <p class="text-zinc-400 mt-1" data-i18n="mock_comment">
+                                            Explicación precisa y clara. Sugiero enlazar los datos abiertos del telescopio TESS como referencia complementaria.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source Call to Action -->
+        <section id="opensource" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/90 to-cosmic-950 p-8 sm:p-12 text-center">
+                <span class="inline-block px-3 py-1 text-xs font-mono text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-5">
+                    100% Open Source
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-semibold tracking-tight text-white mb-4" data-i18n="os_title">
+                    Construido en abierto, para el bien público.
+                </h2>
+                <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto mb-8 leading-relaxed" data-i18n="os_desc">
+                    Yacana Space es una iniciativa de código abierto sin fines de lucro. Súmate como desarrollador, divulgador o revisor científico para llevar la ciencia más lejos.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-zinc-100 text-zinc-950 hover:bg-white rounded-xl transition-all">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                        </svg>
+                        <span data-i18n="os_cta_2">Ver en GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-zinc-900 text-zinc-200 hover:bg-zinc-800 border border-zinc-800 rounded-xl transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round"/>
+                        </svg>
+                        <span data-i18n="os_cta_ig">Seguir en Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer class="border-t border-zinc-900 py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+            <div class="flex items-center gap-2">
+                <span class="font-medium text-zinc-300">Yacana Space</span>
+                <span>•</span>
+                <span data-i18n="footer_license">Licencia Open Source</span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-6">
+                <a href="#origen" class="hover:text-zinc-300 transition-colors" data-i18n="nav_origin">La Yakana</a>
+                <a href="#caracteristicas" class="hover:text-zinc-300 transition-colors" data-i18n="nav_features">Características</a>
+                <a href="#opensource" class="hover:text-zinc-300 transition-colors" data-i18n="nav_opensource">Open Source</a>
+                <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-300 transition-colors">GitHub</a>
+                <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-300 transition-colors">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        // Bilingual Dictionary (ES / EN)
+        const translations = {
+            es: {
+                nav_origin: 'La Yakana',
+                nav_features: 'Características',
+                nav_validation: 'Validación',
+                nav_opensource: 'Open Source',
+                hero_badge: 'Open Source • Plataforma de Divulgación Científica',
+                hero_title: 'Democratizando el acceso a la divulgación científica.',
+                hero_subtitle: 'Un hub descentralizado donde divulgadores, instituciones y la comunidad conectan proyectos, eventos locales y conocimiento científico validado por pares.',
+                hero_cta_primary: 'Conocer el ecosistema',
+                hero_coord_label: 'Constelación Oscura · Vía Láctea Austral',
+                yakana_caption_left: 'Cosmovisión Andina × Astronomía Moderna',
+                yakana_eyebrow: 'Mitología y Ciencia',
+                yakana_title: '¿Por qué Yakana? El cielo oscuro como mapa del conocimiento.',
+                yakana_p1: 'En la astronomía andina, la Yakana es la gran constelación oscura de la llama que camina por el río celestial de la Vía Láctea (Mayu), guiada por dos estrellas brillantes como ojos: Alfa y Beta Centauri. Según el relato ancestral, desciende de noche a beber del océano para mantener el equilibrio del mundo.',
+                yakana_p2: 'Así como los pueblos andinos supieron leer los vacíos entre las estrellas para orientarse, Yacana Space nace para dar forma y visibilidad a la ciencia dispersa, uniendo la curiosidad ancestral con tecnología abierta e inteligencia artificial.',
+                yakana_pillar1: 'Red viva de proyectos',
+                yakana_pillar2: 'Claridad y rigor por pares',
+                yakana_pillar3: 'Acceso libre y regional',
+                feat_eyebrow: 'Arquitectura del ecosistema',
+                feat_title: 'Todo lo que necesita la ciencia abierta en un solo lugar.',
+                feat_desc: 'Diseñado para conectar proyectos independientes, instituciones gubernamentales y ciudadanos curiosos sin fricción.',
+                f1_title: 'Mapa Interactivo Regional',
+                f1_desc: 'Explora iniciativas, observatorios, museos y divulgadores filtrando por disciplina científica o ubicación geográfica.',
+                f2_title: 'Calendario de Eventos',
+                f2_desc: 'Descubre charlas, funciones, talleres y actividades científicas en vivo cerca de tu zona y en fechas específicas.',
+                f3_title: 'Búsqueda e Indexación con IA',
+                f3_desc: 'Un motor inteligente que rastrea, categoriza e indexa proyectos de divulgación relevantes, potenciando el descubrimiento humano.',
+                f4_title: 'Guiones Validados por Pares',
+                f4_desc: 'Publica scripts y textos científicos para que un pool de especialistas y la comunidad los revisen, comenten y validen.',
+                f5_title: 'Propiedad Comunitaria',
+                f5_desc: 'Cualquier usuario puede proponer un proyecto. Sus creadores pueden mantenerlo visible o reclamar el ownership para ampliarlo.',
+                f6_title: 'Hub de Redes y Fuentes',
+                f6_desc: 'Cada proyecto centraliza sus canales sociales, repositorios y publicaciones oficiales en un perfil limpio y verificable.',
+                val_eyebrow: 'Rigor y Colaboración',
+                val_title: 'De la idea al contenido científico validado.',
+                val_desc: 'Yacana Space no solo conecta audiencias; eleva la calidad de la divulgación ofreciendo un espacio abierto de revisión colaborativa para textos y guiones.',
+                step1_title: 'Propón o publica tu guion',
+                step1_desc: 'Comparte borradores de videos, artículos o proyectos con fuentes abiertas.',
+                step2_title: 'Revisión de la comunidad',
+                step2_desc: 'Investigadores y pares aportan sugerencias, solicitan datos y verifican afirmaciones.',
+                step3_title: 'Publicación con respaldo',
+                step3_desc: 'El contenido obtiene un sello de revisión comunitaria transparente para el público.',
+                mock_badge: 'Validado (3 pares)',
+                mock_excerpt: '"Al observar el tránsito de un exoplaneta frente a su estrella anfitriona, la curva de luz presenta una caída periódica que permite estimar su radio relativo..."',
+                mock_comment: 'Explicación precisa y clara. Sugiero enlazar los datos abiertos del telescopio TESS como referencia complementaria.',
+                os_title: 'Construido en abierto, para el bien público.',
+                os_desc: 'Yacana Space es una iniciativa de código abierto sin fines de lucro. Súmate como desarrollador, divulgador o revisor científico para llevar la ciencia más lejos.',
+                os_cta_2: 'Ver en GitHub',
+                os_cta_ig: 'Seguir en Instagram',
+                footer_license: 'Licencia Open Source'
+            },
+            en: {
+                nav_origin: 'The Yakana',
+                nav_features: 'Features',
+                nav_validation: 'Peer Review',
+                nav_opensource: 'Open Source',
+                hero_badge: 'Open Source • Science Communication Platform',
+                hero_title: 'Democratizing access to scientific outreach.',
+                hero_subtitle: 'A decentralized hub where science communicators, institutions, and communities connect projects, local events, and peer-validated scientific content.',
+                hero_cta_primary: 'Discover the ecosystem',
+                hero_coord_label: 'Dark-Cloud Constellation · Southern Milky Way',
+                yakana_caption_left: 'Andean Cosmovision × Modern Astronomy',
+                yakana_eyebrow: 'Mythology & Science',
+                yakana_title: 'Why Yakana? The dark sky as a map of knowledge.',
+                yakana_p1: 'In Andean astronomy, the Yakana is the great dark-cloud constellation of the celestial llama walking along the Milky Way river (Mayu), with Alpha and Beta Centauri shining as her eyes. According to ancestral myth, she descends at midnight to drink from the ocean and preserve balance on Earth.',
+                yakana_p2: 'Just as Andean observers learned to read the dark spaces between stars to navigate, Yacana Space brings structure and visibility to fragmented science outreach—bridging ancestral curiosity with open technology and AI.',
+                yakana_pillar1: 'Living project network',
+                yakana_pillar2: 'Peer-reviewed clarity',
+                yakana_pillar3: 'Open regional access',
+                feat_eyebrow: 'Ecosystem Architecture',
+                feat_title: 'Everything open science outreach needs in one place.',
+                feat_desc: 'Designed to connect independent communicators, research organizations, and curious minds without friction.',
+                f1_title: 'Interactive Regional Map',
+                f1_desc: 'Explore initiatives, observatories, museums, and communicators filtered by scientific field or geographic region.',
+                f2_title: 'Live Events Calendar',
+                f2_desc: 'Discover talks, shows, workshops, and science activities happening in your area on specific dates.',
+                f3_title: 'AI Search & Indexing',
+                f3_desc: 'An intelligent engine that discovers, categorizes, and indexes relevant science outreach alongside human curation.',
+                f4_title: 'Peer-Validated Scripts',
+                f4_desc: 'Publish outreach scripts and texts so a pool of specialists and peers can review, comment, and validate accuracy.',
+                f5_title: 'Community Ownership',
+                f5_desc: 'Anyone can propose a project. Original creators can leave it visible or claim ownership to expand their profile.',
+                f6_title: 'Social & Sources Hub',
+                f6_desc: 'Every project centralizes its social channels, repositories, and official links in a clean, verifiable profile.',
+                val_eyebrow: 'Rigor & Collaboration',
+                val_title: 'From draft to peer-validated science content.',
+                val_desc: 'Yacana Space does more than connect audiences; it raises the bar for public scientific literacy through open collaborative review.',
+                step1_title: 'Publish your outreach script',
+                step1_desc: 'Share video scripts, articles, or project drafts with open references.',
+                step2_title: 'Community peer review',
+                step2_desc: 'Researchers and peers provide feedback, request sources, and verify claims.',
+                step3_title: 'Publish with trust',
+                step3_desc: 'Content receives a transparent community validation badge for the public.',
+                mock_badge: 'Validated (3 peers)',
+                mock_excerpt: '"When observing an exoplanet transiting its host star, the light curve shows a periodic dip that allows estimating its relative radius..."',
+                mock_comment: 'Clear and accurate explanation. I suggest linking the open TESS telescope dataset as a complementary reference.',
+                os_title: 'Built in the open, for the public good.',
+                os_desc: 'Yacana Space is a non-profit open-source initiative. Join as a developer, communicator, or scientific reviewer to bring science to everyone.',
+                os_cta_2: 'View on GitHub',
+                os_cta_ig: 'Follow on Instagram',
+                footer_license: 'Open Source License'
+            }
+        };
+
+        let currentLang = 'es';
+
+        // Update UI strings for selected language
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            const dict = translations[lang];
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            const toggleLabel = lang === 'es' ? 'EN' : 'ES';
+            document.getElementById('langToggle').textContent = toggleLabel;
+            document.getElementById('langToggleMobile').textContent = toggleLabel;
+        }
+
+        // Language toggle listeners
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'es' ? 'en' : 'es');
+        }
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        document.getElementById('langToggleMobile').addEventListener('click', toggleLanguage);
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
