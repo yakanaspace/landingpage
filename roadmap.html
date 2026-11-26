@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yacana Space — Open Source Roadmap</title>
+    <meta name="description" content="Explore the open-source roadmap of Yacana Space: decentralizing, indexing, and peer-validating scientific outreach.">
+
+    <!-- Google Fonts: Space Grotesk (Headings), Inter (Body), JetBrains Mono (Coordinates & Badges) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Custom Design Tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cosmic: {
+                            950: '#07090f',
+                            900: '#0b101b',
+                            850: '#101726',
+                            800: '#162033',
+                            700: '#24324d',
+                        },
+                        starlight: {
+                            300: '#f3d58d',
+                            400: '#d4a853',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cosmic-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-100 overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- Subtle Astronomical Background: Star Chart Grid, Milky Way (Mayu) Glow & Astrolabe Arcs -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+        <!-- Star-Chart Coordinate Grid -->
+        <svg class="absolute inset-0 w-full h-full opacity-[0.045]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="starChartGrid" width="72" height="72" patternUnits="userSpaceOnUse">
+                    <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                    <circle cx="0" cy="0" r="1.1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#starChartGrid)" class="text-indigo-200"/>
+        </svg>
+
+        <!-- Faint Milky Way (Mayu) Diagonal Nebula Glow -->
+        <div class="absolute -top-48 left-1/2 -translate-x-1/2 w-[110vw] max-w-6xl h-[28rem] bg-indigo-500/10 blur-[140px] rounded-full -rotate-12"></div>
+        <div class="absolute top-1/3 -left-32 w-[26rem] h-[26rem] bg-cyan-500/[0.06] blur-[130px] rounded-full"></div>
+        <div class="absolute bottom-1/4 -right-32 w-[26rem] h-[26rem] bg-starlight-400/[0.05] blur-[130px] rounded-full"></div>
+
+        <!-- Delicate Astrolabe Arcs -->
+        <svg class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] max-w-none h-[420px] text-slate-700/30" viewBox="0 0 900 420" fill="none">
+            <circle cx="450" cy="460" r="360" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 7"/>
+            <circle cx="450" cy="460" r="285" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="450" cy="460" r="210" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 8"/>
+            <!-- Subtle Reference Stars (Alpha & Beta Centauri / Llamacñawin) -->
+            <circle cx="242" cy="162" r="2.2" fill="#f3d58d" opacity="0.8"/>
+            <circle cx="260" cy="170" r="1.6" fill="#f3d58d" opacity="0.65"/>
+            <circle cx="678" cy="148" r="1.8" fill="#38bdf8" opacity="0.7"/>
+            <circle cx="710" cy="212" r="1.4" fill="#818cf8" opacity="0.6"/>
+        </svg>
+    </div>
+
+    <!-- Top Sticky Minimalist Navbar -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-800/70 bg-cosmic-950/80 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo linking to index.html -->
+                <a href="index.html" class="flex items-center gap-2.5 group focus:outline-none">
+                    <div class="w-8 h-8 rounded-lg bg-cosmic-900 border border-slate-800 flex items-center justify-center group-hover:border-starlight-400/60 transition-colors">
+                        <!-- Minimalist Yakana Dark Constellation SVG Icon -->
+                        <svg class="w-4 h-4 text-starlight-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                            <path d="M5 17L8 12L14 11L16.5 5.5L19 6.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"/>
+                            <path d="M8 12L7.5 18.5M14 11L15 18.5" stroke-linecap="round" class="text-indigo-400/80"/>
+                            <!-- Alpha & Beta Centauri (Llamacñawin) -->
+                            <circle cx="16.5" cy="5.5" r="1.4" fill="currentColor" stroke="none"/>
+                            <circle cx="19" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </div>
+                    <span class="font-display font-semibold tracking-tight text-slate-100 text-base">Yacana Space</span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-7 text-sm text-slate-400" aria-label="Main navigation">
+                    <a href="index.html" class="hover:text-slate-100 transition-colors" data-i18n="nav_home">Home</a>
+                    <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-slate-100 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <!-- Language Toggle Button -->
+                    <button id="langToggle" type="button" class="px-3 py-1.5 text-xs font-mono text-slate-300 hover:text-white bg-cosmic-900 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors" aria-label="Toggle language">
+                        ES
+                    </button>
+                </nav>
+
+                <!-- Mobile Controls -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button id="langToggleMobile" type="button" class="px-2.5 py-1.5 text-xs font-mono text-slate-300 bg-cosmic-900 border border-slate-800 rounded-lg" aria-label="Toggle language">
+                        ES
+                    </button>
+                    <button id="mobileMenuBtn" type="button" class="p-2 text-slate-400 hover:text-slate-100 rounded-lg border border-slate-800 bg-cosmic-900" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800/70 bg-cosmic-950/95 backdrop-blur-md px-4 pt-3 pb-5 space-y-2">
+            <a href="index.html" class="block py-2 px-2 text-sm text-slate-300 hover:text-white rounded-lg hover:bg-cosmic-900" data-i18n="nav_home">Home</a>
+            <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="block py-2 px-2 text-sm text-slate-300 hover:text-white rounded-lg hover:bg-cosmic-900">GitHub</a>
+            <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="block py-2 px-2 text-sm text-slate-300 hover:text-white rounded-lg hover:bg-cosmic-900">Instagram</a>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <!-- Hero & Overview Section -->
+        <section class="relative pt-16 pb-10 sm:pt-24 sm:pb-14 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <!-- Eyebrow Coordinate Tag -->
+                <div class="flex justify-center sm:justify-start mb-6">
+                    <div class="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-cosmic-900/90 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span data-i18n="hero_eyebrow">OPEN SOURCE ROADMAP · GPL-3.0 · RA 14h 39m / DEC −60° 50′</span>
+                    </div>
+                </div>
+
+                <!-- Headline & Subtitle -->
+                <div class="text-center sm:text-left max-w-3xl">
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] mb-5" data-i18n="hero_title">
+                        Yacana Space Roadmap
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-400 leading-relaxed mb-8" data-i18n="hero_subtitle">
+                        Our open-source trajectory toward decentralizing, indexing, and peer-validating scientific outreach—guided by transparency, community ownership, and public literacy.
+                    </p>
+                </div>
+
+                <!-- Compact Progress Metrics & Filter Control Panel -->
+                <div class="rounded-2xl border border-slate-800/80 bg-cosmic-900/70 backdrop-blur-md p-5 sm:p-6 shadow-xl">
+                    <!-- Top Row: Overall Progress Bar & Milestone Stats -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-800/80">
+                        <div class="flex-1 max-w-xl">
+                            <div class="flex items-center justify-between text-xs font-mono mb-2">
+                                <span class="text-slate-400 uppercase tracking-wider" data-i18n="metrics_label">Overall Trajectory Progress</span>
+                                <span id="overallPercentText" class="text-cyan-300 font-medium">0%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-cosmic-950 border border-slate-800 overflow-hidden">
+                                <div id="overallProgressBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400 transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Compact Status Counters -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs font-mono">
+                            <div class="px-3 py-2 rounded-xl bg-cosmic-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                                <span class="text-slate-400 truncate" data-i18n="status_completed">Completed</span>
+                                <span id="countCompleted" class="text-white font-semibold">0</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-xl bg-cosmic-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+                                <span class="w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+                                <span class="text-slate-400 truncate" data-i18n="status_in_progress">In Progress</span>
+                                <span id="countInProgress" class="text-white font-semibold">0</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-xl bg-cosmic-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+                                <span class="w-2 h-2 rounded-full bg-indigo-400 shrink-0"></span>
+                                <span class="text-slate-400 truncate" data-i18n="status_planned">Planned</span>
+                                <span id="countPlanned" class="text-white font-semibold">0</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-xl bg-cosmic-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                                <span class="text-slate-400 truncate" data-i18n="status_vision">Vision</span>
+                                <span id="countVision" class="text-white font-semibold">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row: Interactive Filter Pills & Expand/Collapse All -->
+                    <div class="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div id="filterBar" class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter milestones by status">
+                            <!-- Filter buttons rendered via JS -->
+                        </div>
+                        <button id="toggleAllBtn" type="button" class="self-start sm:self-auto px-3 py-1.5 text-xs font-mono text-slate-400 hover:text-slate-100 bg-cosmic-950/60 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors">
+                            Collapse all
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Constellation Vertical Timeline Section -->
+        <section class="pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8" aria-label="Project Roadmap Phases">
+            <div class="max-w-5xl mx-auto relative">
+                <!-- Vertical Glowing Constellation Spine -->
+                <div class="absolute left-4 sm:left-6 top-6 bottom-6 w-px bg-gradient-to-b from-emerald-400/70 via-cyan-400/50 via-50% to-amber-400/40" aria-hidden="true"></div>
+
+                <!-- Dynamic Roadmap Container -->
+                <div id="roadmapTimeline" class="space-y-6 sm:space-y-8">
+                    <!-- Phase cards rendered dynamically by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action: Contribute to the Roadmap -->
+        <section class="pb-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-b from-cosmic-900/90 to-cosmic-950 p-8 sm:p-12 text-center shadow-2xl">
+                    <!-- Decorative Coordinate Watermark -->
+                    <div class="text-[11px] font-mono text-starlight-300/80 tracking-widest uppercase mb-4">
+                        α Cen · β Cen // Llamacñawin
+                    </div>
+
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold tracking-tight text-white mb-4" data-i18n="cta_title">
+                        Contribute to the Roadmap
+                    </h2>
+                    <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8" data-i18n="cta_desc">
+                        Yacana Space is built in the open under GNU GPL-3.0. Whether you are a developer, scientist, designer, or science communicator, open an issue, submit a pull request, or follow our journey.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-slate-100 text-cosmic-950 hover:bg-white rounded-xl transition-all shadow-sm">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                            </svg>
+                            <span data-i18n="cta_github">Open an Issue or PR on GitHub</span>
+                        </a>
+                        <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-cosmic-900 text-slate-200 hover:bg-cosmic-800 border border-slate-800 rounded-xl transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                                <circle cx="12" cy="12" r="4"/>
+                                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                            </svg>
+                            <span data-i18n="cta_instagram">Follow Updates on Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Clean Minimalist Footer -->
+    <footer class="border-t border-slate-900 py-10 px-4 sm:px-6 lg:px-8 bg-cosmic-950/80">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                <span class="font-display font-medium text-slate-300">Yacana Space</span>
+                <span>•</span>
+                <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors font-mono" data-i18n="footer_license">
+                    GNU GPL-3.0 License
+                </a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="hover:text-slate-300 transition-colors" data-i18n="nav_home">Home</a>
+                <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">GitHub</a>
+                <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic: Data Model, Bilingual Translation, Filtering & Constellation Timeline Renderer -->
+    <script>
+        // Static UI translations (Default: EN)
+        const uiStrings = {
+            en: {
+                page_title: 'Yacana Space — Open Source Roadmap',
+                nav_home: 'Home',
+                hero_eyebrow: 'OPEN SOURCE ROADMAP · GPL-3.0 · RA 14h 39m / DEC −60° 50′',
+                hero_title: 'Yacana Space Roadmap',
+                hero_subtitle: 'Our open-source trajectory toward decentralizing, indexing, and peer-validating scientific outreach—guided by transparency, community ownership, and public literacy.',
+                metrics_label: 'Overall Trajectory Progress',
+                filter_all: 'All',
+                status_completed: 'Completed',
+                status_in_progress: 'In Progress',
+                status_planned: 'Planned',
+                status_vision: 'Vision',
+                collapse_all: 'Collapse all',
+                expand_all: 'Expand all',
+                milestones_count_suffix: 'milestones',
+                empty_filter: 'No milestones match this filter.',
+                cta_title: 'Contribute to the Roadmap',
+                cta_desc: 'Yacana Space is built in the open under GNU GPL-3.0. Whether you are a developer, scientist, designer, or science communicator, open an issue, submit a pull request, or follow our journey.',
+                cta_github: 'Open an Issue or PR on GitHub',
+                cta_instagram: 'Follow Updates on Instagram',
+                footer_license: 'GNU GPL-3.0 License'
+            },
+            es: {
+                page_title: 'Yacana Space — Hoja de Ruta Open Source',
+                nav_home: 'Inicio',
+                hero_eyebrow: 'HOJA DE RUTA OPEN SOURCE · GPL-3.0 · RA 14h 39m / DEC −60° 50′',
+                hero_title: 'Hoja de Ruta de Yacana Space',
+                hero_subtitle: 'Nuestra trayectoria de código abierto para descentralizar, indexar y validar por pares la divulgación científica, guiada por la transparencia y la propiedad comunitaria.',
+                metrics_label: 'Progreso General de la Trayectoria',
+                filter_all: 'Todos',
+                status_completed: 'Completado',
+                status_in_progress: 'En Progreso',
+                status_planned: 'Planificado',
+                status_vision: 'Visión',
+                collapse_all: 'Contraer todo',
+                expand_all: 'Expandir todo',
+                milestones_count_suffix: 'hitos',
+                empty_filter: 'Ningún hito coincide con este filtro.',
+                cta_title: 'Contribuye a la Hoja de Ruta',
+                cta_desc: 'Yacana Space se construye en abierto bajo licencia GNU GPL-3.0. Ya seas desarrollador, científico, diseñador o divulgador, abre un issue, envía un pull request o sigue nuestras novedades.',
+                cta_github: 'Abrir Issue o PR en GitHub',
+                cta_instagram: 'Seguir Novedades en Instagram',
+                footer_license: 'Licencia GNU GPL-3.0'
+            }
+        };
+
+        // Structured Roadmap Data (Bilingual EN / ES)
+        const roadmapPhases = [
+            {
+                id: 'phase-0',
+                code: 'PHASE 00',
+                coord: 'EPOCH J2000 · MAYU',
+                status: 'completed',
+                title: {
+                    en: 'Genesis & Foundation',
+                    es: 'Génesis y Fundamentos'
+                },
+                summary: {
+                    en: 'Establishing the scientific identity, open-source governance, and static web presence.',
+                    es: 'Establecimiento de la identidad científica, la gobernanza open source y la presencia web estática.'
+                },
+                tags: ['Branding', 'GPL-3.0', 'Cloudflare Pages'],
+                milestones: [
+                    {
+                        status: 'completed',
+                        text: {
+                            en: 'Brand identity inspired by the Andean Yakana dark constellation & scientific visual language',
+                            es: 'Identidad de marca inspirada en la constelación oscura andina Yakana y lenguaje visual científico'
+                        }
+                    },
+                    {
+                        status: 'completed',
+                        text: {
+                            en: 'Minimalist bilingual (EN/ES) static landing page & GitHub repository under GNU GPL-3.0',
+                            es: 'Landing page estática bilingüe (EN/ES) minimalista y repositorio en GitHub bajo licencia GNU GPL-3.0'
+                        }
+                    },
+                    {
+                        status: 'completed',
+                        text: {
+                            en: 'Cloudflare Pages CI/CD deployment & privacy-first Web Analytics integration',
+                            es: 'Despliegue continuo en Cloudflare Pages e integración de analítica web respetuosa con la privacidad'
+                        }
+                    },
+                    {
+                        status: 'completed',
+                        text: {
+                            en: 'Initial open-source community channels on GitHub & Instagram',
+                            es: 'Canales iniciales de comunidad open source en GitHub e Instagram'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'phase-1',
+                code: 'PHASE 01',
+                coord: 'α CEN · 4.37 LY',
+                status: 'in_progress',
+                title: {
+                    en: 'Core Directory & Community Ownership',
+                    es: 'Directorio Central y Propiedad Comunitaria'
+                },
+                summary: {
+                    en: 'Building the open data foundation for communicators, projects, and community-driven discovery.',
+                    es: 'Construcción de la base de datos abierta para divulgadores, proyectos y descubrimiento comunitario.'
+                },
+                tags: ['Open Schema', 'Profiles', 'Ownership'],
+                milestones: [
+                    {
+                        status: 'in_progress',
+                        text: {
+                            en: 'Open data schema for individual communicators, independent projects, and research institutions',
+                            es: 'Esquema de datos abierto para divulgadores individuales, proyectos independientes e instituciones de investigación'
+                        }
+                    },
+                    {
+                        status: 'in_progress',
+                        text: {
+                            en: 'Unified social channel linking & rich project profile pages',
+                            es: 'Vinculación unificada de redes sociales y páginas enriquecidas de perfil de proyecto'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Community-driven submission flow allowing users to propose science outreach projects',
+                            es: 'Flujo comunitario que permite a cualquier usuario proponer proyectos de divulgación científica'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Creator ownership claiming system so project owners can manage and expand their profiles',
+                            es: 'Sistema de reclamo de propiedad (ownership) para que los creadores gestionen y amplíen sus perfiles'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'phase-2',
+                code: 'PHASE 02',
+                coord: 'β CEN · HADAR',
+                status: 'planned',
+                title: {
+                    en: 'Interactive Map & Live Events Calendar',
+                    es: 'Mapa Interactivo y Calendario de Eventos'
+                },
+                summary: {
+                    en: 'Connecting local communities with geographic science discovery, live activities, and open APIs.',
+                    es: 'Conexión de comunidades locales mediante exploración geográfica, actividades en vivo y APIs abiertas.'
+                },
+                tags: ['GeoJSON Map', 'Events', 'Public API'],
+                milestones: [
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Interactive regional map to explore science communication by geographic zone',
+                            es: 'Mapa regional interactivo para explorar la divulgación científica por zona geográfica'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Scientific discipline taxonomy and multi-criteria filtering',
+                            es: 'Taxonomía de disciplinas científicas y filtrado multicriterio'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Live events calendar for local talks, workshops, exhibitions, and outreach activities',
+                            es: 'Calendario de eventos en vivo para charlas, talleres, exhibiciones y actividades de divulgación locales'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Public read-only API for open science data reuse',
+                            es: 'API pública de solo lectura para la reutilización de datos de ciencia abierta'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'phase-3',
+                code: 'PHASE 03',
+                coord: 'DEC −60° 50′ · AI',
+                status: 'planned',
+                title: {
+                    en: 'AI Search & Indexing Engine',
+                    es: 'Motor de Búsqueda e Indexación con IA'
+                },
+                summary: {
+                    en: 'Combining human curation with automated semantic discovery to surface outreach across the web.',
+                    es: 'Combinación de curaduría humana con descubrimiento semántico automatizado para visibilizar ciencia en toda la web.'
+                },
+                tags: ['AI Indexing', 'Semantic Search', 'NLP'],
+                milestones: [
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Automated AI-powered crawler and indexing pipeline for science outreach across the web',
+                            es: 'Pipeline automatizado de rastreo e indexación impulsado por IA para divulgación científica en la web'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Semantic search combining human curation with AI discovery',
+                            es: 'Búsqueda semántica que combina la curaduría humana con el descubrimiento asistido por IA'
+                        }
+                    },
+                    {
+                        status: 'planned',
+                        text: {
+                            en: 'Automated categorization by scientific field, language, and target audience',
+                            es: 'Categorización automática por área científica, idioma y público objetivo'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'phase-4',
+                code: 'PHASE 04',
+                coord: 'UÑA YACANA · COMMONS',
+                status: 'vision',
+                title: {
+                    en: 'Peer-Validated Content Commons',
+                    es: 'Comunidad de Contenido Validado por Pares'
+                },
+                summary: {
+                    en: 'Raising public scientific literacy through open script review, peer validation, and transparent badges.',
+                    es: 'Elevando la alfabetización científica pública mediante revisión abierta de guiones, validación por pares y sellos transparentes.'
+                },
+                tags: ['Peer Review', 'Scripts', 'Scientific Rigor'],
+                milestones: [
+                    {
+                        status: 'vision',
+                        text: {
+                            en: 'Collaborative workspace for communicators to publish outreach scripts and educational texts',
+                            es: 'Espacio colaborativo para que divulgadores publiquen guiones y textos educativos'
+                        }
+                    },
+                    {
+                        status: 'vision',
+                        text: {
+                            en: 'Expert and peer validation pool for scientific accuracy review',
+                            es: 'Pool de especialistas y pares para la revisión de rigurosidad científica'
+                        }
+                    },
+                    {
+                        status: 'vision',
+                        text: {
+                            en: 'Community commenting, annotations, and public topic request system',
+                            es: 'Sistema comunitario de comentarios, anotaciones y solicitud pública de temas'
+                        }
+                    },
+                    {
+                        status: 'vision',
+                        text: {
+                            en: 'Transparent validation badges to elevate public scientific literacy',
+                            es: 'Sellos transparentes de validación para elevar la alfabetización científica pública'
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // Color & Icon Styles per Status
+        const statusConfig = {
+            completed: {
+                badgeClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+                nodeClass: 'bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.75)]',
+                dotClass: 'bg-emerald-400',
+                barClass: 'bg-emerald-400',
+                iconSvg: `<svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`
+            },
+            in_progress: {
+                badgeClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+                nodeClass: 'bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.85)] ring-4 ring-cyan-400/20',
+                dotClass: 'bg-cyan-400 animate-pulse',
+                barClass: 'bg-cyan-400',
+                iconSvg: `<svg class="w-3.5 h-3.5 text-cyan-400 animate-spin" style="animation-duration: 6s;" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364 6.364l-2.121-2.121M8.757 8.757L6.636 6.636m12.728 0l-2.121 2.121M8.757 15.243l-2.121 2.121"/></svg>`
+            },
+            planned: {
+                badgeClass: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+                nodeClass: 'bg-indigo-400 shadow-[0_0_14px_rgba(129,140,248,0.65)]',
+                dotClass: 'bg-indigo-400',
+                barClass: 'bg-indigo-400',
+                iconSvg: `<svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>`
+            },
+            vision: {
+                badgeClass: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+                nodeClass: 'bg-amber-400 shadow-[0_0_16px_rgba(251,191,36,0.7)]',
+                dotClass: 'bg-amber-400',
+                barClass: 'bg-amber-400',
+                iconSvg: `<svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2L12 3z"/></svg>`
+            }
+        };
+
+        // Application State
+        let currentLang = 'en';
+        let activeFilter = 'all';
+        const expandedPhases = new Set(roadmapPhases.map(p => p.id));
+
+        // Helper: Return localized status label
+        function getStatusLabel(status) {
+            return uiStrings[currentLang][`status_${status}`] || status;
+        }
+
+        // Compute & Update Progress Metrics
+        function updateMetrics() {
+            const counts = { completed: 0, in_progress: 0, planned: 0, vision: 0 };
+            let total = 0;
+
+            roadmapPhases.forEach(phase => {
+                phase.milestones.forEach(m => {
+                    total++;
+                    if (counts[m.status] !== undefined) counts[m.status]++;
+                });
+            });
+
+            // Completed counts as 100%, In Progress as 40% toward overall trajectory bar
+            const weightedScore = counts.completed + (counts.in_progress * 0.4);
+            const percent = total > 0 ? Math.round((weightedScore / total) * 100) : 0;
+
+            document.getElementById('countCompleted').textContent = counts.completed;
+            document.getElementById('countInProgress').textContent = counts.in_progress;
+            document.getElementById('countPlanned').textContent = counts.planned;
+            document.getElementById('countVision').textContent = counts.vision;
+            document.getElementById('overallPercentText').textContent = `${percent}%`;
+            document.getElementById('overallProgressBar').style.width = `${percent}%`;
+        }
+
+        // Render Filter Bar Buttons
+        function renderFilterBar() {
+            const filterBar = document.getElementById('filterBar');
+            const dict = uiStrings[currentLang];
+            const filters = [
+                { key: 'all', label: dict.filter_all },
+                { key: 'completed', label: dict.status_completed },
+                { key: 'in_progress', label: dict.status_in_progress },
+                { key: 'planned', label: dict.status_planned },
+                { key: 'vision', label: dict.status_vision }
+            ];
+
+            filterBar.innerHTML = filters.map(f => {
+                const isActive = activeFilter === f.key;
+                const activeClasses = isActive
+                    ? 'bg-slate-100 text-cosmic-950 border-slate-100 font-medium shadow-sm'
+                    : 'bg-cosmic-950/60 text-slate-400 border-slate-800 hover:text-slate-100 hover:border-slate-700';
+
+                return `
+                    <button type="button"
+                        data-filter="${f.key}"
+                        class="px-3.5 py-1.5 text-xs font-mono rounded-lg border transition-all ${activeClasses}">
+                        ${f.label}
+                    </button>
+                `;
+            }).join('');
+
+            // Attach click listeners
+            filterBar.querySelectorAll('button[data-filter]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeFilter = btn.getAttribute('data-filter');
+                    renderFilterBar();
+                    renderTimeline();
+                });
+            });
+        }
+
+        // Render Constellation Vertical Timeline
+        function renderTimeline() {
+            const container = document.getElementById('roadmapTimeline');
+            const dict = uiStrings[currentLang];
+
+            try {
+                const visiblePhases = roadmapPhases
+                    .map(phase => {
+                        const filteredMilestones = activeFilter === 'all'
+                            ? phase.milestones
+                            : phase.milestones.filter(m => m.status === activeFilter);
+                        return { ...phase, visibleMilestones: filteredMilestones };
+                    })
+                    .filter(phase => phase.visibleMilestones.length > 0);
+
+                if (visiblePhases.length === 0) {
+                    container.innerHTML = `
+                        <div class="pl-12 sm:pl-16">
+                            <div class="rounded-2xl border border-slate-800 bg-cosmic-900/70 p-8 text-center text-sm text-slate-400">
+                                ${dict.empty_filter}
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = visiblePhases.map(phase => {
+                    const cfg = statusConfig[phase.status];
+                    const isExpanded = expandedPhases.has(phase.id);
+                    const totalCount = phase.milestones.length;
+                    const completedCount = phase.milestones.filter(m => m.status === 'completed').length;
+                    const inProgCount = phase.milestones.filter(m => m.status === 'in_progress').length;
+                    const phaseProgress = Math.round(((completedCount + inProgCount * 0.4) / totalCount) * 100);
+
+                    const tagsHtml = phase.tags.map(tag => `
+                        <span class="px-2 py-0.5 text-[11px] font-mono rounded-md bg-cosmic-950/80 text-slate-400 border border-slate-800/90">
+                            ${tag}
+                        </span>
+                    `).join('');
+
+                    const milestonesHtml = phase.visibleMilestones.map(m => {
+                        const mCfg = statusConfig[m.status];
+                        const isDone = m.status === 'completed';
+                        return `
+                            <li class="flex items-start justify-between gap-3 p-3 sm:p-3.5 rounded-xl bg-cosmic-950/60 border border-slate-800/70 hover:border-slate-700/80 transition-colors">
+                                <div class="flex items-start gap-3">
+                                    <span class="mt-0.5 w-5 h-5 rounded-md bg-cosmic-900 border border-slate-800 flex items-center justify-center shrink-0" aria-hidden="true">
+                                        ${mCfg.iconSvg}
+                                    </span>
+                                    <span class="text-sm leading-relaxed ${isDone ? 'text-slate-300' : 'text-slate-200'}">
+                                        ${m.text[currentLang]}
+                                    </span>
+                                </div>
+                                <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-mono rounded-full border shrink-0 ${mCfg.badgeClass}">
+                                    <span class="w-1.5 h-1.5 rounded-full ${mCfg.dotClass}"></span>
+                                    ${getStatusLabel(m.status)}
+                                </span>
+                            </li>
+                        `;
+                    }).join('');
+
+                    return `
+                        <article class="relative pl-11 sm:pl-16">
+                            <!-- Glowing Constellation Node -->
+                            <div class="absolute left-[10px] sm:left-[18px] top-7 w-3.5 h-3.5 rounded-full border-2 border-cosmic-950 ${cfg.nodeClass} transition-transform" aria-hidden="true"></div>
+
+                            <!-- Glassmorphism Phase Card -->
+                            <div class="group rounded-2xl border border-slate-800/80 bg-cosmic-900/70 backdrop-blur-md hover:border-slate-700/90 hover:-translate-y-0.5 transition-all duration-300 shadow-lg">
+                                <!-- Card Header (Clickable to Expand/Collapse) -->
+                                <button type="button"
+                                    data-phase-toggle="${phase.id}"
+                                    aria-expanded="${isExpanded}"
+                                    class="w-full text-left p-5 sm:p-6 focus:outline-none">
+                                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+                                        <div class="flex flex-wrap items-center gap-2.5">
+                                            <span class="text-xs font-mono font-medium text-starlight-300 tracking-wider">${phase.code}</span>
+                                            <span class="text-slate-700">·</span>
+                                            <span class="text-[11px] font-mono text-slate-500">${phase.coord}</span>
+                                        </div>
+
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-full border ${cfg.badgeClass}">
+                                                <span class="w-1.5 h-1.5 rounded-full ${cfg.dotClass}"></span>
+                                                ${getStatusLabel(phase.status)}
+                                            </span>
+                                            <span class="p-1 rounded-lg text-slate-400 group-hover:text-slate-200 bg-cosmic-950/60 border border-slate-800 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <h2 class="font-display text-xl sm:text-2xl font-semibold text-white tracking-tight mb-2">
+                                        ${phase.title[currentLang]}
+                                    </h2>
+                                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                                        ${phase.summary[currentLang]}
+                                    </p>
+
+                                    <!-- Phase Tags & Mini Progress Bar -->
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div class="flex flex-wrap items-center gap-1.5">
+                                            ${tagsHtml}
+                                        </div>
+                                        <div class="flex items-center gap-3 text-[11px] font-mono text-slate-400">
+                                            <span>${phase.visibleMilestones.length} ${dict.milestones_count_suffix}</span>
+                                            <div class="w-20 h-1.5 rounded-full bg-cosmic-950 border border-slate-800 overflow-hidden">
+                                                <div class="h-full rounded-full ${cfg.barClass}" style="width: ${phaseProgress}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <!-- Expandable Milestones List -->
+                                <div class="${isExpanded ? 'block' : 'hidden'} px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-800/60">
+                                    <ul class="space-y-2.5 mt-4">
+                                        ${milestonesHtml}
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
+                // Attach expand/collapse listeners to phase headers
+                container.querySelectorAll('button[data-phase-toggle]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-phase-toggle');
+                        if (expandedPhases.has(id)) {
+                            expandedPhases.delete(id);
+                        } else {
+                            expandedPhases.add(id);
+                        }
+                        renderTimeline();
+                        updateToggleAllButton();
+                    });
+                });
+            } catch (err) {
+                console.error('Failed to render roadmap timeline:', err);
+            }
+        }
+
+        // Update "Collapse all / Expand all" Button Label
+        function updateToggleAllButton() {
+            const btn = document.getElementById('toggleAllBtn');
+            const dict = uiStrings[currentLang];
+            const allExpanded = roadmapPhases.every(p => expandedPhases.has(p.id));
+            btn.textContent = allExpanded ? dict.collapse_all : dict.expand_all;
+        }
+
+        // Apply Selected Language Across Static UI & Dynamic Roadmap
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            const dict = uiStrings[lang];
+            document.title = dict.page_title;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            const toggleLabel = lang === 'en' ? 'ES' : 'EN';
+            document.getElementById('langToggle').textContent = toggleLabel;
+            document.getElementById('langToggleMobile').textContent = toggleLabel;
+
+            renderFilterBar();
+            renderTimeline();
+            updateToggleAllButton();
+        }
+
+        // Event Listeners
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'en' ? 'es' : 'en');
+        }
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        document.getElementById('langToggleMobile').addEventListener('click', toggleLanguage);
+
+        document.getElementById('toggleAllBtn').addEventListener('click', () => {
+            const allExpanded = roadmapPhases.every(p => expandedPhases.has(p.id));
+            if (allExpanded) {
+                expandedPhases.clear();
+            } else {
+                roadmapPhases.forEach(p => expandedPhases.add(p.id));
+            }
+            renderTimeline();
+            updateToggleAllButton();
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', String(!isHidden));
+        });
+
+        // Initialize Page
+        updateMetrics();
+        applyLanguage('en');
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a94a86b435354fa0a56f098cf63277b2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
