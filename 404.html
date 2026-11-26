@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Uncharted Coordinates | Yacana Space</title>
+    <meta name="description" content="Uncharted coordinates in the Mayu. Return to Yacana Space or explore our open-source roadmap.">
+
+    <!-- Google Fonts: Space Grotesk (Display), Inter (Body), JetBrains Mono (Telemetry) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Custom Design Tokens (Matched to Yacana Space Palette) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cosmic: {
+                            950: '#07090f',
+                            900: '#0b101b',
+                            850: '#101726',
+                            800: '#162033',
+                            700: '#24324d',
+                        },
+                        starlight: {
+                            300: '#f3d58d',
+                            400: '#d4a853',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cosmic-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-100 overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- Subtle Astronomical Background: Star-Chart Grid, Milky Way (Mayu) Glow & Astrolabe Rings -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+        <!-- Star-Chart Coordinate Grid -->
+        <svg class="absolute inset-0 w-full h-full opacity-[0.045]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="starChartGrid" width="72" height="72" patternUnits="userSpaceOnUse">
+                    <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                    <circle cx="0" cy="0" r="1.1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#starChartGrid)" class="text-indigo-200"/>
+        </svg>
+
+        <!-- Faint Milky Way (Mayu) Diagonal Nebula Glow -->
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[115vw] max-w-6xl h-[28rem] bg-indigo-500/10 blur-[140px] rounded-full -rotate-12"></div>
+        <div class="absolute top-1/3 -left-32 w-[26rem] h-[26rem] bg-cyan-500/[0.06] blur-[130px] rounded-full"></div>
+        <div class="absolute bottom-1/4 -right-32 w-[24rem] h-[24rem] bg-starlight-400/[0.05] blur-[130px] rounded-full"></div>
+
+        <!-- Delicate Astrolabe / Orbital Rings -->
+        <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[960px] max-w-none h-[960px] text-slate-700/25" viewBox="0 0 960 960" fill="none">
+            <circle cx="480" cy="480" r="430" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 8"/>
+            <circle cx="480" cy="480" r="335" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="480" cy="480" r="245" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 9"/>
+            <!-- Subtle Cardinal Axis Lines -->
+            <line x1="480" y1="30" x2="480" y2="930" stroke="currentColor" stroke-width="0.4" stroke-dasharray="2 10"/>
+            <line x1="30" y1="480" x2="930" y2="480" stroke="currentColor" stroke-width="0.4" stroke-dasharray="2 10"/>
+        </svg>
+    </div>
+
+    <!-- Minimal Top Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-800/70 bg-cosmic-950/80 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo linking to index.html -->
+                <a href="index.html" class="flex items-center gap-2.5 group focus:outline-none">
+                    <div class="w-8 h-8 rounded-lg bg-cosmic-900 border border-slate-800 flex items-center justify-center group-hover:border-starlight-400/60 transition-colors">
+                        <!-- Minimalist Yakana Dark Constellation Icon -->
+                        <svg class="w-4 h-4 text-starlight-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                            <path d="M5 17L8 12L14 11L16.5 5.5L19 6.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"/>
+                            <path d="M8 12L7.5 18.5M14 11L15 18.5" stroke-linecap="round" class="text-indigo-400/80"/>
+                            <!-- Alpha & Beta Centauri (Llamacñawin) -->
+                            <circle cx="16.5" cy="5.5" r="1.4" fill="currentColor" stroke="none"/>
+                            <circle cx="19" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </div>
+                    <span class="font-display font-semibold tracking-tight text-slate-100 text-base">Yacana Space</span>
+                </a>
+
+                <!-- Right Controls: Language Toggle -->
+                <div class="flex items-center gap-3">
+                    <button id="langToggle" type="button" class="px-3 py-1.5 text-xs font-mono text-slate-300 hover:text-white bg-cosmic-900 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors" aria-label="Toggle language between English and Spanish">
+                        ES
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Centered 404 Hero Section -->
+    <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        <div class="w-full max-w-2xl">
+            <!-- Glassmorphism Cosmic Card -->
+            <div class="relative rounded-3xl border border-slate-800/85 bg-cosmic-900/75 backdrop-blur-md p-6 sm:p-10 text-center shadow-2xl overflow-hidden">
+                <!-- Subtle Top Accent Glow -->
+                <div class="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" aria-hidden="true"></div>
+
+                <!-- Monospace Status Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cosmic-950/90 border border-slate-800 text-[11px] sm:text-xs font-mono text-cyan-300 tracking-wider mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                    </span>
+                    <span data-i18n="status_badge">SIGNAL LOST · SECTOR 404</span>
+                </div>
+
+                <!-- Minimalist Custom SVG Illustration: Uncharted Coordinate in the Yakana Constellation -->
+                <div class="relative mx-auto max-w-md mb-6 rounded-2xl border border-slate-800/70 bg-gradient-to-b from-cosmic-950/90 to-cosmic-900/60 p-3 sm:p-4 overflow-hidden">
+                    <svg viewBox="0 0 420 210" class="w-full h-auto" role="img" aria-label="Uncharted coordinate radar in the dark constellation of the Yakana">
+                        <defs>
+                            <radialGradient id="mayuNebula" cx="50%" cy="50%" r="55%">
+                                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22"/>
+                                <stop offset="55%" stop-color="#06b6d4" stop-opacity="0.08"/>
+                                <stop offset="100%" stop-color="#07090f" stop-opacity="0"/>
+                            </radialGradient>
+                            <radialGradient id="llamacGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#fef3c7" stop-opacity="1"/>
+                                <stop offset="40%" stop-color="#f3d58d" stop-opacity="0.55"/>
+                                <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Faint Galactic Grid & Milky Way Band -->
+                        <g stroke="#334155" stroke-width="0.5" opacity="0.4" fill="none">
+                            <path d="M 0 55 Q 210 25 420 68"/>
+                            <path d="M 0 155 Q 210 125 420 168"/>
+                            <line x1="105" y1="0" x2="95" y2="210" stroke-dasharray="2 5"/>
+                            <line x1="210" y1="0" x2="210" y2="210" stroke-dasharray="2 5"/>
+                            <line x1="315" y1="0" x2="325" y2="210" stroke-dasharray="2 5"/>
+                        </g>
+                        <ellipse cx="210" cy="108" rx="195" ry="68" transform="rotate(-11 210 108)" fill="url(#mayuNebula)"/>
+
+                        <!-- Background Starfield -->
+                        <g fill="#e2e8f0">
+                            <circle cx="38" cy="34" r="1" opacity="0.55"/>
+                            <circle cx="82" cy="82" r="1.2" opacity="0.45"/>
+                            <circle cx="126" cy="28" r="0.9" opacity="0.65"/>
+                            <circle cx="180" cy="40" r="1.1" opacity="0.45"/>
+                            <circle cx="242" cy="30" r="1" opacity="0.6"/>
+                            <circle cx="348" cy="36" r="1.2" opacity="0.55"/>
+                            <circle cx="386" cy="96" r="1" opacity="0.45"/>
+                            <circle cx="356" cy="172" r="1.1" opacity="0.55"/>
+                            <circle cx="258" cy="186" r="0.9" opacity="0.5"/>
+                            <circle cx="132" cy="180" r="1.2" opacity="0.5"/>
+                            <circle cx="52" cy="156" r="1" opacity="0.45"/>
+                        </g>
+
+                        <!-- Dark Llama Constellation Outline (Yakana) -->
+                        <path d="M 102 140
+                                 C 106 112, 128 94, 168 90
+                                 C 198 87, 232 84, 256 77
+                                 C 270 60, 278 44, 290 41
+                                 C 299 39, 311 44, 315 51
+                                 C 317 56, 309 60, 298 62
+                                 C 292 72, 286 90, 281 108
+                                 C 278 125, 284 149, 277 167
+                                 C 272 171, 266 168, 265 156
+                                 C 262 140, 258 130, 249 128
+                                 C 220 131, 180 134, 151 137
+                                 C 142 150, 139 167, 130 173
+                                 C 124 174, 121 169, 123 156
+                                 C 124 144, 114 145, 102 140 Z"
+                              fill="#06080f" fill-opacity="0.86" stroke="#818cf8" stroke-opacity="0.38" stroke-width="1"/>
+
+                        <!-- Pulsing Radar / Signal-Lost Ring at Uncharted Coordinate -->
+                        <g transform="translate(210, 112)">
+                            <!-- Expanding Radar Pulse 1 -->
+                            <circle cx="0" cy="0" r="10" fill="none" stroke="#22d3ee" stroke-width="1.2" opacity="0.8">
+                                <animate attributeName="r" values="8;48" dur="3.2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.75;0" dur="3.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <!-- Expanding Radar Pulse 2 (Delayed) -->
+                            <circle cx="0" cy="0" r="10" fill="none" stroke="#818cf8" stroke-width="1" opacity="0.6">
+                                <animate attributeName="r" values="8;48" dur="3.2s" begin="1.6s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.65;0" dur="3.2s" begin="1.6s" repeatCount="indefinite"/>
+                            </circle>
+                            <!-- Static Dashed Target Reticle -->
+                            <circle cx="0" cy="0" r="22" fill="none" stroke="#38bdf8" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.55"/>
+                            <line x1="-10" y1="0" x2="-4" y2="0" stroke="#38bdf8" stroke-width="1"/>
+                            <line x1="4" y1="0" x2="10" y2="0" stroke="#38bdf8" stroke-width="1"/>
+                            <line x1="0" y1="-10" x2="0" y2="-4" stroke="#38bdf8" stroke-width="1"/>
+                            <line x1="0" y1="4" x2="0" y2="10" stroke="#38bdf8" stroke-width="1"/>
+                            <circle cx="0" cy="0" r="2" fill="#22d3ee"/>
+                        </g>
+
+                        <!-- Alpha & Beta Centauri (Llamacñawin — The Two Bright Eyes) -->
+                        <circle cx="291" cy="51" r="13" fill="url(#llamacGlow)"/>
+                        <circle cx="291" cy="51" r="2.7" fill="#fef3c7"/>
+                        <circle cx="305" cy="55" r="9.5" fill="url(#llamacGlow)"/>
+                        <circle cx="305" cy="55" r="2" fill="#fde68a"/>
+
+                        <!-- Subtle Scientific Labels -->
+                        <g font-family="JetBrains Mono, monospace" font-size="8.5" fill="#94a3b8">
+                            <line x1="295" y1="47" x2="326" y2="28" stroke="#d4a853" stroke-width="0.7" opacity="0.75"/>
+                            <text x="330" y="28" fill="#f3d58d">α &amp; β Cen</text>
+                            <text x="330" y="38" font-size="7.5" fill="#64748b">Llamacñawin</text>
+
+                            <line x1="227" y1="127" x2="250" y2="148" stroke="#38bdf8" stroke-width="0.6" opacity="0.6"/>
+                            <text x="254" y="151" font-size="7.5" fill="#67e8f9">VOID // 404</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Large Clean Typographic 404 with Subtle Glow/Gradient -->
+                <div class="relative inline-block mb-2">
+                    <span class="font-display text-6xl sm:text-8xl font-bold tracking-tighter bg-gradient-to-b from-white via-slate-200 to-cyan-300/75 bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(34,211,238,0.22)]">
+                        404
+                    </span>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-3" data-i18n="headline">
+                    Uncharted Coordinates
+                </h1>
+
+                <!-- Description -->
+                <p class="text-sm sm:text-base text-slate-400 max-w-lg mx-auto leading-relaxed mb-8" data-i18n="description">
+                    This region of the Mayu hasn't been mapped yet. The page you're looking for may have drifted out of orbit or doesn't exist.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
+                    <!-- Primary Button: Return to Base -->
+                    <a href="index.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-slate-100 text-cosmic-950 hover:bg-white rounded-xl transition-all shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        <span data-i18n="btn_home">Return to Base</span>
+                    </a>
+
+                    <!-- Secondary Glassmorphism Button: View Roadmap -->
+                    <a href="roadmap.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium bg-cosmic-800/50 hover:bg-cosmic-800/80 text-slate-200 hover:text-white border border-slate-700/80 hover:border-cyan-500/40 backdrop-blur-md rounded-xl transition-all">
+                        <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                        <span data-i18n="btn_roadmap">View Roadmap</span>
+                    </a>
+                </div>
+
+                <!-- Live Interactive Astronomical Telemetry Strip -->
+                <div class="pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-mono text-slate-400">
+                    <div class="inline-flex items-center gap-1.5">
+                        <span class="text-slate-500">RA</span>
+                        <span id="telemetryRA" class="text-cyan-300">14h 39m 36s</span>
+                    </div>
+                    <span class="hidden sm:inline text-slate-700">·</span>
+                    <div class="inline-flex items-center gap-1.5">
+                        <span class="text-slate-500">DEC</span>
+                        <span id="telemetryDEC" class="text-indigo-300">−60° 50′ 02″</span>
+                    </div>
+                    <span class="hidden sm:inline text-slate-700">·</span>
+                    <div class="inline-flex items-center gap-1.5">
+                        <span class="text-slate-500">GAL</span>
+                        <span id="telemetryGAL" class="text-starlight-300">l 315.7° b −0.7°</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Minimal Footer -->
+    <footer class="border-t border-slate-900 py-8 px-4 sm:px-6 lg:px-8 bg-cosmic-950/80">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                <span class="font-display font-medium text-slate-300">Yacana Space</span>
+                <span>•</span>
+                <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors font-mono" data-i18n="footer_license">
+                    Open Source · GNU GPL-3.0
+                </a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://github.com/yakanaspace" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-slate-200 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.instagram.com/yakana.space" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-slate-200 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic: Bilingual Toggle & Real-Time Astronomical Telemetry -->
+    <script>
+        // Bilingual Dictionary (Default: English)
+        const translations = {
+            en: {
+                page_title: '404 — Uncharted Coordinates | Yacana Space',
+                status_badge: 'SIGNAL LOST · SECTOR 404',
+                headline: 'Uncharted Coordinates',
+                description: "This region of the Mayu hasn't been mapped yet. The page you're looking for may have drifted out of orbit or doesn't exist.",
+                btn_home: 'Return to Base',
+                btn_roadmap: 'View Roadmap',
+                footer_license: 'Open Source · GNU GPL-3.0'
+            },
+            es: {
+                page_title: '404 — Coordenadas no cartografiadas | Yacana Space',
+                status_badge: 'SEÑAL PERDIDA · SECTOR 404',
+                headline: 'Coordenadas no cartografiadas',
+                description: 'Esta región del Mayu todavía no fue mapeada. La página que buscás puede haberse salido de órbita o no existir.',
+                btn_home: 'Volver al inicio',
+                btn_roadmap: 'Ver Roadmap',
+                footer_license: 'Open Source · GNU GPL-3.0'
+            }
+        };
+
+        let currentLang = 'en';
+
+        /**
+         * Updates all localized UI strings and document language attributes.
+         * @param {'en' | 'es'} lang
+         */
+        function applyLanguage(lang) {
+            try {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                const dict = translations[lang];
+                document.title = dict.page_title;
+
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        el.textContent = dict[key];
+                    }
+                });
+
+                document.getElementById('langToggle').textContent = lang === 'en' ? 'ES' : 'EN';
+            } catch (err) {
+                console.error('Language switch error:', err);
+            }
+        }
+
+        // Toggle EN / ES on click
+        document.getElementById('langToggle').addEventListener('click', () => {
+            applyLanguage(currentLang === 'en' ? 'es' : 'en');
+        });
+
+        // Real-Time Interactive Astronomical Telemetry (Centered near Alpha Centauri / Yakana)
+        const raEl = document.getElementById('telemetryRA');
+        const decEl = document.getElementById('telemetryDEC');
+        const galEl = document.getElementById('telemetryGAL');
+
+        // Base reference coordinates around Alpha Centauri (RA 14h 39m 36s, DEC -60° 50' 02")
+        const target = { x: 0.5, y: 0.5 };
+        const current = { x: 0.5, y: 0.5 };
+
+        function pad2(num) {
+            return String(Math.floor(Math.abs(num))).padStart(2, '0');
+        }
+
+        /**
+         * Formats normalized viewport coordinates (0..1) into realistic astronomical telemetry.
+         */
+        function renderTelemetry(nx, ny) {
+            // Map horizontal position to Right Ascension around 14h 39m ± 2h
+            const raHoursTotal = (14.66 + (nx - 0.5) * 4 + 24) % 24;
+            const raH = Math.floor(raHoursTotal);
+            const raMFloat = (raHoursTotal - raH) * 60;
+            const raM = Math.floor(raMFloat);
+            const raS = Math.floor((raMFloat - raM) * 60);
+
+            // Map vertical position to Declination around -60.83° ± 15°
+            const decDegTotal = Math.max(-89.9, Math.min(89.9, -60.8339 - (ny - 0.5) * 30));
+            const decSign = decDegTotal < 0 ? '−' : '+';
+            const absDec = Math.abs(decDegTotal);
+            const decD = Math.floor(absDec);
+            const decMFloat = (absDec - decD) * 60;
+            const decM = Math.floor(decMFloat);
+            const decS = Math.floor((decMFloat - decM) * 60);
+
+            // Map to approximate Galactic coordinates near the Southern Milky Way (Mayu)
+            const galL = ((315.7 + (nx - 0.5) * 32) + 360) % 360;
+            const galB = (-0.7 - (ny - 0.5) * 18);
+            const galBSign = galB < 0 ? '−' : '+';
+
+            raEl.textContent = `${pad2(raH)}h ${pad2(raM)}m ${pad2(raS)}s`;
+            decEl.textContent = `${decSign}${pad2(decD)}° ${pad2(decM)}′ ${pad2(decS)}″`;
+            galEl.textContent = `l ${galL.toFixed(1)}° b ${galBSign}${Math.abs(galB).toFixed(1)}°`;
+        }
+
+        // Smooth interpolation loop so telemetry updates fluidly on pointer movement
+        function animateTelemetry() {
+            current.x += (target.x - current.x) * 0.12;
+            current.y += (target.y - current.y) * 0.12;
+            renderTelemetry(current.x, current.y);
+            requestAnimationFrame(animateTelemetry);
+        }
+
+        function updatePointerTarget(clientX, clientY) {
+            const w = window.innerWidth || 1;
+            const h = window.innerHeight || 1;
+            target.x = Math.max(0, Math.min(1, clientX / w));
+            target.y = Math.max(0, Math.min(1, clientY / h));
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            updatePointerTarget(e.clientX, e.clientY);
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length > 0) {
+                updatePointerTarget(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Initialize language and telemetry loop
+        applyLanguage('en');
+        requestAnimationFrame(animateTelemetry);
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a94a86b435354fa0a56f098cf63277b2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
