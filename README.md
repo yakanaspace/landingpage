@@ -1,18 +1,18 @@
-# Yacana Space — Landing Page
+# Yakana Space — Landing Page
 
 > **Democratizing access to scientific outreach.**
 
-This repository contains the official landing page for **Yacana Space**, a decentralized, open-source platform designed to connect science communicators, research institutions, and communities through interactive regional maps, live event calendars, AI-powered indexing, and collaborative peer validation.
+This repository contains the official landing page for **Yakana Space**, a decentralized, open-source platform designed to connect science communicators, research institutions, and communities through interactive regional maps, live event calendars, AI-powered indexing, and collaborative peer validation.
 
 ## ✨ Why *Yakana*?
 
 In Andean astronomy, the **Yakana** is the great dark-cloud constellation of the celestial llama walking along the Milky Way river (*Mayu*), with two bright stars shining as her eyes: Alpha and Beta Centauri (*Llamacñawin*).
 
-Just as Andean observers learned to read the dark spaces between the stars to navigate, **Yacana Space** brings structure and visibility to fragmented scientific outreach—bridging ancestral curiosity with open technology and artificial intelligence.
+Just as Andean observers learned to read the dark spaces between the stars to navigate, **Yakana Space** brings structure and visibility to fragmented scientific outreach—bridging ancestral curiosity with open technology and artificial intelligence.
 
 ## 🧩 Landing Page Features
 
-* **Minimalist Astronomical Design:** Dark-mode aesthetic inspired by star charts, featuring a subtle astronomical grid, astrolabe arcs, and inline SVG illustrations of the Yakana and Uña Yacana dark-cloud constellations.
+* **Minimalist Astronomical Design:** Dark-mode aesthetic inspired by star charts, featuring a subtle astronomical grid, astrolabe arcs, and inline SVG illustrations of the Yakana and Uña Yakana dark-cloud constellations.
 * **Bilingual Support (ES / EN):** Built-in vanilla JavaScript language switcher that translates the entire interface instantly without reloading the page.
 * **Single-File Architecture:** All markup, styles, and logic live inside `index.html` with zero build steps required.
 * **Fully Responsive:** Optimized for mobile, tablet, and desktop viewports, including a collapsible mobile navigation menu.
