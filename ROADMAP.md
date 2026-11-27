@@ -1,6 +1,6 @@
-# Yacana Space — Roadmap
+# Yakana Space — Roadmap
 
-This document outlines the development milestones for **Yacana Space**, an open-source, decentralized platform connecting science communicators, research institutions, and the public.
+This document outlines the development milestones for **Yakana Space**, an open-source, decentralized platform connecting science communicators, research institutions, and the public.
 
 Inspired by the Andean dark constellation **Yakana**, our goal is to map, validate, and amplify scientific outreach worldwide. For a visual, filterable view of these milestones, visit the interactive `roadmap.html` page on our site.
 
@@ -75,7 +75,7 @@ Expanding long-term resilience, interoperability, and community governance.
 
 ## How to Contribute
 
-Yacana Space is built in the open. If you want to propose a feature, report an issue, or help build any of the phases above:
+Yakana Space is built in the open. If you want to propose a feature, report an issue, or help build any of the phases above:
 
 1. Check existing issues or open a new discussion on [GitHub](https://github.com/yakanaspace).
 2. Follow updates and community calls on [Instagram](https://www.instagram.com/yakana.space).
